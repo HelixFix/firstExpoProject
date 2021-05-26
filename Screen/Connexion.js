@@ -9,10 +9,10 @@ export default function App() {
     
   return (
     <View style={styles.container}>
-      <Title title="Connexion" style={styles.titleText}/>
+      <Title title="Connexion" />
 
      <EmailInput/>
-     
+
      <PasswordInput/>
 
       <Button color="#841584" title="Connexion" onPress="<HomePage/>" />
@@ -29,8 +29,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  titleText: {
-    color: "#800080",
-   
-  },
+
 });

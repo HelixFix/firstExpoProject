@@ -11,7 +11,7 @@ export default class ButtonInscr extends Component {
     const { title } = this.props;
     const { color } = this.props;
     return (
-      <View>
+      <View style={{ height: 50, marginTop: 10, width: "60%" }}>
         <Button style={styles.Button}
           //onPress={() => navigation.navigate('WallScreen')}
           title={ title }
@@ -26,6 +26,7 @@ export default class ButtonInscr extends Component {
 
 const styles = StyleSheet.create({
   Button: {
-   margin: 10,
+   
+  
   },
 });

@@ -16,11 +16,11 @@ export default class EmailInput extends Component {
         returnKeyType="next"
         value={this.state.email}
         onChangeText={text => this.setState({ email: text})}
-        style={{ height: 40, borderColor: "gray", borderWidth: 1, margin:10, width: 200}}
+        style={{ height: 40, borderColor: "gray", borderWidth: 1, margin:10, width: "60%"}}
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
-        placeholder="Email"
+        placeholder="  Email"
         autoCompleteType="email"
       />
     );
