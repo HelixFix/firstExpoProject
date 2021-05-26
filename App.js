@@ -1,10 +1,28 @@
 import React from "react";
 import HomePage from "./Screen/HomePage.js";
 import Connexion from "./Screen/Connexion";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default function App() {
+const Stack = createStackNavigator();
+
+// export default function App() {
+//   return (
+//     //<HomePage/>
+//     <Connexion />
+//   );
+// }
+
+const App = () => {
   return (
-    //<HomePage/>
-    <Connexion />
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="HomePage" component={HomePage} />
+        <Stack.Screen name="LoginScreen" component={Connexion} />
+		{/* <Stack.Screen name="Registerscreen" component={Inscription} /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
+
+export default App;

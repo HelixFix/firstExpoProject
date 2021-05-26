@@ -25,5 +25,5 @@ export default class ButtonInscr extends Component {
 }
 
 const styles = StyleSheet.create({
-  Button: {},
+  
 });

@@ -14,7 +14,7 @@ export default function App() {
 
       <PasswordInput />
 
-      <Button color="#841584" title="Connexion" onPress="<HomePage/>" />
+      <Button color="#841584" title="Connexion" />
 
       <Button color="#ff5c5c" title="Inscription" />
     </View>
