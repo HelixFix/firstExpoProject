@@ -5,30 +5,24 @@ import Button from "../Components/Button";
 import Title from "../Components/Title";
 
 export default function App() {
-
   return (
     <View style={styles.container}>
       <Title title="Connexion/Inscription" />
 
-
       <StatusBar style="auto" />
 
-      <Button color="#841584" title="Connexion" onPress="<HomePage/>"/>
+      <Button color="#841584" title="Connexion" onPress="<HomePage/>" />
 
-	  <Button color="#ff5c5c" title="Inscription" />
+      <Button color="#ff5c5c" title="Inscription" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex           : 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems     : "center",
+    justifyContent : "center",
   },
-  Button: {
-	margin: 10,
-	marginBottom: 10,
-   },
 });
