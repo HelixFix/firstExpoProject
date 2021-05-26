@@ -1,18 +1,21 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Button from "../Components/Button";
+import Title from "../Components/Title";
 
 export default function App() {
+
   return (
     <View style={styles.container}>
-      <Text>Open up !</Text>
+      <Title title="Connexion/Inscription" />
+
+
       <StatusBar style="auto" />
-      <Button
-        //onPress={onPressLearnMore}
-        title="Learn More"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
+
+      <Button color="#841584" title="Connexion" onPress="<HomePage/>"/>
+
+	  <Button color="#ff5c5c" title="Inscription" />
     </View>
   );
 }
@@ -24,4 +27,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  Button: {
+	margin: 10,
+	marginBottom: 10,
+   },
 });
