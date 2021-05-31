@@ -14,7 +14,12 @@ export default class Inscription extends React.Component {
       <View style={styles.container}>
         <Title title = "Inscription" />
 
-        <TexteInput placeholder = "Nom" />
+        <TexteInput
+          placeholder      = "Nom"
+          autoCompleteType = "name"
+          textContentType  = "name"
+          autoCompleteType = "name"
+        />
 
         <EmailInput />
 

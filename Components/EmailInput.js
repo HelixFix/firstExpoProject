@@ -27,7 +27,6 @@ export default class EmailInput extends Component {
         textContentType  = "emailAddress"
         keyboardType     = "email-address"
         placeholder      = "Email"
-        autoCompleteType = "email"
       />
     );
   }

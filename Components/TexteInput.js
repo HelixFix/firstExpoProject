@@ -9,7 +9,7 @@ export default class TexteInput extends Component {
     };
   }
   render() {
-    const { placeholder } = this.props;
+    const { autoCompleteType, textContentType, placeholder } = this.props;
 
     return (
       <TextInput
@@ -25,11 +25,10 @@ export default class TexteInput extends Component {
           width      : "60%",
           padding    : 10,
         }}
-        autoCompleteType = "text"
-        textContentType  = "emailAddress"
+        autoCompleteType = {autoCompleteType}
+        textContentType  = {textContentType}
         keyboardType     = "default"
         placeholder      = {placeholder}
-        autoCompleteType = "email"
       />
     );
   }
