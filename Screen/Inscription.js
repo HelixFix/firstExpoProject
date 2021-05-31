@@ -30,9 +30,10 @@ export default class Inscription extends React.Component {
 
   onSignUpPressed() {
     console.log("click");
-    console.log(this.props);
-    const nameError = nameValidator(this.state.name);
-    const emailError = emailValidator(this.state.email);
+    //console.log(this.props);
+
+    const nameError     = nameValidator(this.state.name);
+    const emailError    = emailValidator(this.state.email);
     const passwordError = passwordValidator(this.state.password);
 
     if (nameError || emailError || passwordError) {
@@ -40,6 +41,7 @@ export default class Inscription extends React.Component {
       return;
     } else {
       // const action
+      this.props.navigation.navigate("LoginScreen");
     }
   }
 
@@ -48,7 +50,7 @@ export default class Inscription extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Title title = "Inscription" />
+        <Title title="Inscription" />
 
         <TexteInput
           placeholder      = "Nom"
@@ -56,11 +58,18 @@ export default class Inscription extends React.Component {
           textContentType  = "name"
           autoCompleteType = "name"
           value            = {this.state.name}
+          onChangeText     = {(text) => this.setState({ name: text })}
         />
 
-        <EmailInput />
+        <EmailInput
+          value        = {this.state.email}
+          onChangeText = {(text) => this.setState({ email: text })}
+        />
 
-        <PasswordInput />
+        <PasswordInput
+          value        = {this.state.password}
+          onChangeText = {(text) => this.setState({ password: text })}
+        />
 
         <Button
           color   = "#841584"

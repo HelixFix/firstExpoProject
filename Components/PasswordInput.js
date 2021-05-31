@@ -4,17 +4,20 @@ import { TextInput } from "react-native";
 export default class PasswordInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      password: "",
-    };
+    // this.state = {
+    //   password: "",
+    // };
   }
   render() {
+
+    const { value, onChangeText } = this.props;
+    
     return (
       <TextInput
         label         = "Password"
         returnKeyType = "done"
-        value         = {this.state.password}
-        onChangeText  = {(text) => this.setState({ password: text })}
+        value         = {value}
+        onChangeText  = {onChangeText}
         style         = {{
           height     : 40,
           borderColor: "gray",

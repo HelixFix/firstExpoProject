@@ -4,17 +4,20 @@ import { TextInput } from "react-native";
 export default class EmailInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: "",
-    };
+    // this.state = {
+    //  email: "",
+    // };
   }
   render() {
+
+    const { value, onChangeText } = this.props;
+
     return (
       <TextInput
         label         = "Email"
         returnKeyType = "next"
-        value         = {this.state.email}
-        onChangeText  = {(text) => this.setState({ email: text })}
+        value         = {value}
+        onChangeText  = {onChangeText}
         style         = {{
           height     : 40,
           borderColor: "gray",
