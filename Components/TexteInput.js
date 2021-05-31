@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { TextInput } from "react-native";
 
-export default class PasswordInput extends Component {
+export default class TexteInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: "",
+      text: "",
     };
   }
   render() {
+    const { placeholder } = this.props;
+
     return (
       <TextInput
-        label         = "Password"
-        returnKeyType = "done"
-        value         = {this.state.password}
-        onChangeText  = {(text) => this.setState({ password: text })}
+        label         = "Nom"
+        returnKeyType = "next"
+        value         = {this.state.text}
+        onChangeText  = {(text) => this.setState({ text: text })}
         style         = {{
           height     : 40,
           borderColor: "gray",
@@ -23,11 +25,11 @@ export default class PasswordInput extends Component {
           width      : "60%",
           padding    : 10,
         }}
-        autoCompleteType = "password"
-        textContentType  = "password"
+        autoCompleteType = "text"
+        textContentType  = "emailAddress"
         keyboardType     = "default"
-        placeholder      = "Password"
-        secureTextEntry  = {true}
+        placeholder      = {placeholder}
+        autoCompleteType = "email"
       />
     );
   }
