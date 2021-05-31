@@ -22,11 +22,9 @@ export default class Inscription extends React.Component {
 
         <PasswordInput />
 
-        {/* <Button color = "#841584" title = "Connexion" /> */}
-
         <Button color = "#841584" title = "Inscription" />
 
-        <Text style >
+        <Text onPress = {() => navigate("LoginScreen")} >
         Déjà  inscrit ?<Text style = {styles.innerText}> Connectez-vous</Text>
         </Text>
 
@@ -43,7 +41,7 @@ const styles = StyleSheet.create({
     justifyContent : "center",
   },
   innerText: {
-    color: "#841584",
+    color     : "#841584",
     fontWeight: "bold",
   },
 });

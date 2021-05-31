@@ -11,8 +11,7 @@ export default class Connexion extends React.Component {
 
     return (
       <View style={styles.container}>
-        
-        <Title title = "Connexion" />
+        <Title title="Connexion" />
 
         <EmailInput />
 
@@ -26,8 +25,11 @@ export default class Connexion extends React.Component {
 
         <Button color = "#841584" title = "Connexion" />
 
-        <Button color = "#ff5c5c" title = "Inscription" />
-
+        <Button
+          color   = "#ff5c5c"
+          title   = "Inscription"
+          onPress = {() => navigate("Registerscreen")}
+        />
       </View>
     );
   }
@@ -35,9 +37,9 @@ export default class Connexion extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex           : 1,
+    flex: 1,
     backgroundColor: "#fff",
-    alignItems     : "center",
-    justifyContent : "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
