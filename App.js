@@ -2,6 +2,7 @@ import React from "react";
 import HomePage from "./Screen/HomePage.js";
 import Connexion from "./Screen/Connexion";
 import Inscription from "./Screen/Inscription";
+import AccueilUtilisateur from "./Screen/AccueilUtilisateur";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -18,9 +19,10 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      
+
       <Stack.Navigator>
 
+        <Stack.Screen name = "UserHomePage" component   = {AccueilUtilisateur} />
         <Stack.Screen name = "HomePage" component       = {HomePage} />
         <Stack.Screen name = "LoginScreen" component    = {Connexion} />
         <Stack.Screen name = "Registerscreen" component = {Inscription} />

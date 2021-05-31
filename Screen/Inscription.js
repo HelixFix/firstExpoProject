@@ -11,9 +11,7 @@ export default class Inscription extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-
       <View style={styles.container}>
-
         <Title title = "Inscription" />
 
         <TexteInput placeholder = "Nom" />
@@ -24,10 +22,15 @@ export default class Inscription extends React.Component {
 
         <Button color = "#841584" title = "Inscription" />
 
-        <Text onPress = {() => navigate("LoginScreen")} >
-        Déjà  inscrit ?<Text style = {styles.innerText}> Connectez-vous</Text>
+        <Text>
+          Déjà inscrit ?
+          <Text
+            style   = {styles.innerText}
+            onPress = {() => navigate("LoginScreen")}
+          >
+            Connectez-vous
+          </Text>
         </Text>
-
       </View>
     );
   }

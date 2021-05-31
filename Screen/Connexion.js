@@ -1,6 +1,6 @@
 import React from "react";
 import Title from "../Components/Title";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View, } from "react-native";
 import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
