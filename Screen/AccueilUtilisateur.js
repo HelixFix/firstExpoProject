@@ -1,24 +1,26 @@
 import React from "react";
 import Title from "../Components/Title";
-import { StyleSheet, View, Text} from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import Button from "../Components/Button";
-
 
 export default class AccueilUtilisateur extends React.Component {
   render() {
+    const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.container}>
-
         <Title title = "Vous êtes connecté" />
 
-        <Text style={{  width: "60%", textAlign: "center" }} >
-        Bienvenu sur notre application d'inscription connexion
-        {"\n"}
+        <Text style = {{ width: "60%", textAlign: "center" }}>
+          Bienvenu sur notre application d'inscription connexion
+          {"\n"}
         </Text>
 
-        <Button color = "#841584" title = "Déconnexion" />
-
+        <Button
+          color   = "#841584"
+          title   = "Déconnexion"
+          onPress = {() => navigate("HomePage")}
+        />
       </View>
     );
   }

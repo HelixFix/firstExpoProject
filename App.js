@@ -22,9 +22,9 @@ const App = () => {
 
       <Stack.Navigator>
 
-        <Stack.Screen name = "UserHomePage" component   = {AccueilUtilisateur} />
         <Stack.Screen name = "HomePage" component       = {HomePage} />
         <Stack.Screen name = "LoginScreen" component    = {Connexion} />
+        <Stack.Screen name = "UserHomePage" component   = {AccueilUtilisateur} />
         <Stack.Screen name = "Registerscreen" component = {Inscription} />
 
       </Stack.Navigator>

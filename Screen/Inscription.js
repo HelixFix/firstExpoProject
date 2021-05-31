@@ -28,6 +28,7 @@ export default class Inscription extends React.Component {
             style   = {styles.innerText}
             onPress = {() => navigate("LoginScreen")}
           >
+            {" "}
             Connectez-vous
           </Text>
         </Text>
