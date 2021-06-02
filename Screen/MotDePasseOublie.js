@@ -69,14 +69,14 @@ class MotDePasseOublie extends React.Component {
       }
     }
 
-      if (userConnect == false) {
-        Alert.alert(
-          "Erreur",
-          "L'email est incorrect",
-          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-          { cancelable: false }
-        );
-    }
+    if (userConnect == false) {
+      Alert.alert(
+        "Erreur",
+        "L'email est incorrect",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+  }
   }
 
   render() {
