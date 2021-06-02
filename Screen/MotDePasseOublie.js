@@ -40,18 +40,20 @@ class MotDePasseOublie extends React.Component {
 
     var userConnect = false;
 
-    if (users.length == 0) {
-      Alert.alert(
-        "Erreur",
-        "Database vide",
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-        { cancelable: false }
-      );
-    }
+    // if (users.length == 0) {
+    //   Alert.alert(
+    //     "Erreur",
+    //     "Database vide",
+    //     [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+    //     { cancelable: false }
+    //   );
+    // }
 
     for (var i = 0; i < users.length; i++) {
       if (users[i].email == this.state.email) {
-              userConnect = true;
+
+        userConnect = true;
+
         const action      = {
           type : "ADD_USER",
           value: {
@@ -65,6 +67,7 @@ class MotDePasseOublie extends React.Component {
 
         this.props.navigation.navigate("LoginScreen");
       }
+    }
 
       if (userConnect == false) {
         Alert.alert(
@@ -73,7 +76,6 @@ class MotDePasseOublie extends React.Component {
           [{ text: "OK", onPress: () => console.log("OK Pressed") }],
           { cancelable: false }
         );
-      }
     }
   }
 

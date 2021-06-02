@@ -10,7 +10,7 @@ import {
   nameValidator,
   passwordValidator,
 } from "../core/utils";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
 class Inscription extends React.Component {
   constructor(props) {
@@ -41,9 +41,15 @@ class Inscription extends React.Component {
     if (nameError || emailError || passwordError) {
       this.alerte();
       return;
-    } 
-    else {
-      const action = { type: "ADD_USER", value: {name: this.state.name, email: this.state.email, password: this.state.password}};
+    } else {
+      const action = {
+        type : "ADD_USER",
+        value: {
+          name    : this.state.name,
+          email   : this.state.email,
+          password: this.state.password,
+        },
+      };
 
       this.props.dispatch(action);
       this.props.navigation.navigate("LoginScreen");
@@ -55,7 +61,7 @@ class Inscription extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Title title="Inscription" />
+        <Title title = "Inscription" />
 
         <TexteInput
           placeholder      = "Nom"
@@ -92,7 +98,6 @@ class Inscription extends React.Component {
             Connectez-vous
           </Text>
         </Text>
-
       </View>
     );
   }
@@ -112,8 +117,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return state
-}
+  return state;
+};
 
 // React autorise uniquement un export default par page
-export default connect(mapStateToProps)(Inscription)
+export default connect(mapStateToProps)(Inscription);
