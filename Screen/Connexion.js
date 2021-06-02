@@ -1,11 +1,60 @@
 import React from "react";
 import Title from "../Components/Title";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
+import {connect} from "react-redux";
+import {
+  emailValidator,
+  passwordValidator,
+} from "../core/utils";
 
-export default class Connexion extends React.Component {
+class Connexion extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email   : "",
+      password: "",
+    };
+  }
+
+  onLoginPressed () {
+
+    const emailError    = emailValidator(this.state.email);
+    const passwordError = passwordValidator(this.state.password); 
+
+    if (emailError || passwordError) {
+      alert()
+      return
+    }
+
+    const {users} = this.props
+
+    var userConnect = false
+
+    for(var i=0; i < users.length; i++) {
+
+      if (users[i].email == this.state.email && users[i].password == this.state.password) {
+        userConnect = true
+        this.props.navigation.navigate('UserHomePage', {username: users[i].name});
+      }
+    }
+
+    if(userConnect == false) {
+      Alert.alert (
+        'Erreur',
+        'L\'email ou le mot de passe est incorrect',
+        [
+          {text: 'OK', onPress: ()=> console.log('OK Pressed')},
+          
+        ],
+        {cancelable:false},
+      );
+    }
+  }
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -13,9 +62,11 @@ export default class Connexion extends React.Component {
       <View style={styles.container}>
         <Title title = "Connexion" />
 
-        <EmailInput />
+        <EmailInput value        = {this.state.email}
+          onChangeText = {(text) => this.setState({ email: text })}/>
 
-        <PasswordInput />
+        <PasswordInput value        = {this.state.password}
+          onChangeText = {(text) => this.setState({ password: text })}/>
 
         {/* <TouchableOpacity onPress={() => navigate("LoginScreen")}>
           <Text color = "#ff5c5c">Connexion</Text>
@@ -24,7 +75,7 @@ export default class Connexion extends React.Component {
         <Button
           color   = "#841584"
           title   = "Connexion"
-          onPress = {() => navigate("UserHomePage")}
+          onPress = {() => this.onLoginPressed()}
         />
 
         <Button
@@ -45,3 +96,10 @@ const styles = StyleSheet.create({
     justifyContent : "center",
   },
 });
+
+const mapStateToProps = (state) => {
+  return state
+}
+
+// React autorise uniquement un export default par page
+export default connect(mapStateToProps)(Connexion)

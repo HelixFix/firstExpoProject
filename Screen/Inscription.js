@@ -10,14 +10,15 @@ import {
   nameValidator,
   passwordValidator,
 } from "../core/utils";
+import { connect } from 'react-redux'
 
-export default class Inscription extends React.Component {
+class Inscription extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
-      email: "",
+      name    : "",
+      email   : "",
       password: "",
     };
   }
@@ -35,12 +36,16 @@ export default class Inscription extends React.Component {
     const nameError     = nameValidator(this.state.name);
     const emailError    = emailValidator(this.state.email);
     const passwordError = passwordValidator(this.state.password);
+    //var user = [];
 
     if (nameError || emailError || passwordError) {
       this.alerte();
       return;
-    } else {
-      // const action
+    } 
+    else {
+      const action = { type: "ADD_USER", value: {name: this.state.name, email: this.state.email, password: this.state.password}};
+
+      this.props.dispatch(action);
       this.props.navigation.navigate("LoginScreen");
     }
   }
@@ -104,3 +109,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+const mapStateToProps = (state) => {
+  return state
+}
+
+// React autorise uniquement un export default par page
+export default connect(mapStateToProps)(Inscription)

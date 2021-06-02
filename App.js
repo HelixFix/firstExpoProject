@@ -6,23 +6,25 @@ import AccueilUtilisateur from "./Screen/AccueilUtilisateur";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Provider } from "react-redux";
+import Store from "./Store/ConfigStore";
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Stack.Navigator>
 
-      <Stack.Navigator>
+          <Stack.Screen name = "HomePage" component       = {HomePage} />
+          <Stack.Screen name = "LoginScreen" component    = {Connexion} />
+          <Stack.Screen name = "UserHomePage" component   = {AccueilUtilisateur} />
+          <Stack.Screen name = "Registerscreen" component = {Inscription} />
 
-        <Stack.Screen name = "HomePage" component       = {HomePage} />
-        <Stack.Screen name = "LoginScreen" component    = {Connexion} />
-        <Stack.Screen name = "UserHomePage" component   = {AccueilUtilisateur} />
-        <Stack.Screen name = "Registerscreen" component = {Inscription} />
-
-      </Stack.Navigator>
-
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
