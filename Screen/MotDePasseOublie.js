@@ -41,15 +41,30 @@ class MotDePasseOublie extends React.Component {
 
     const {users} = this.props
 
+    var userConnect = false
+
     for(var i=0; i < users.length; i++) {
 
         if (users[i].email == this.state.email) {
+            userConnect = true
             const action = { type: "ADD_USER", value: {name: users[i].name, email: this.state.email, password: this.state.password}};
 
             this.props.dispatch(action);
 
           this.props.navigation.navigate('LoginScreen');
-        }
+        } 
+        
+        if(userConnect == false) {
+            Alert.alert (
+              'Erreur',
+              'L\'email est incorrect',
+              [
+                {text: 'OK', onPress: ()=> console.log('OK Pressed')},
+                
+              ],
+              {cancelable:false},
+            );
+          }
       }
   }
 
