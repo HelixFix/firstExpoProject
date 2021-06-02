@@ -4,11 +4,8 @@ import { StyleSheet, TouchableOpacity, View, Alert } from "react-native";
 import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
-import {
-  emailValidator,
-  passwordValidator,
-} from "../core/utils";
-import { connect } from 'react-redux'
+import { emailValidator, passwordValidator } from "../core/utils";
+import { connect } from "react-redux";
 
 class MotDePasseOublie extends React.Component {
   constructor(props) {
@@ -37,35 +34,47 @@ class MotDePasseOublie extends React.Component {
     if (emailError || passwordError) {
       this.alerte();
       return;
-    } 
+    }
 
-    const {users} = this.props
+    const { users } = this.props;
 
-    var userConnect = false
+    var userConnect = false;
 
-    for(var i=0; i < users.length; i++) {
+    if (users.length == 0) {
+      Alert.alert(
+        "Erreur",
+        "Database vide",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    }
 
-        if (users[i].email == this.state.email) {
-            userConnect = true
-            const action = { type: "ADD_USER", value: {name: users[i].name, email: this.state.email, password: this.state.password}};
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].email == this.state.email) {
+              userConnect = true;
+        const action      = {
+          type : "ADD_USER",
+          value: {
+            name    : users[i].name,
+            email   : this.state.email,
+            password: this.state.password,
+          },
+        };
 
-            this.props.dispatch(action);
+        this.props.dispatch(action);
 
-          this.props.navigation.navigate('LoginScreen');
-        } 
-        
-        if(userConnect == false) {
-            Alert.alert (
-              'Erreur',
-              'L\'email est incorrect',
-              [
-                {text: 'OK', onPress: ()=> console.log('OK Pressed')},
-                
-              ],
-              {cancelable:false},
-            );
-          }
+        this.props.navigation.navigate("LoginScreen");
       }
+
+      if (userConnect == false) {
+        Alert.alert(
+          "Erreur",
+          "L'email est incorrect",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
+      }
+    }
   }
 
   render() {
@@ -73,7 +82,7 @@ class MotDePasseOublie extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Title title="Modifier votre mot de passe" />
+        <Title title = "Nouveau mot de passe" />
 
         <EmailInput
           value        = {this.state.email}
@@ -90,7 +99,6 @@ class MotDePasseOublie extends React.Component {
           title   = "Modifier"
           onPress = {() => this.onPWChangePressed()}
         />
-        
       </View>
     );
   }
@@ -110,8 +118,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return state
-}
+  return state;
+};
 
 // React autorise uniquement un export default par page
-export default connect(mapStateToProps)(MotDePasseOublie)
+export default connect(mapStateToProps)(MotDePasseOublie);
