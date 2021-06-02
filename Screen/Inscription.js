@@ -92,7 +92,7 @@ class Inscription extends React.Component {
             Connectez-vous
           </Text>
         </Text>
-        
+
       </View>
     );
   }

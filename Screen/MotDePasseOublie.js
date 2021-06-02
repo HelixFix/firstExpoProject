@@ -1,13 +1,11 @@
 import React from "react";
 import Title from "../Components/Title";
-import { StyleSheet, TouchableOpacity, View, Text, Alert } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Alert } from "react-native";
 import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
-import TexteInput from "../Components/TexteInput";
 import {
   emailValidator,
-  nameValidator,
   passwordValidator,
 } from "../core/utils";
 import { connect } from 'react-redux'
@@ -17,7 +15,6 @@ class MotDePasseOublie extends React.Component {
     super(props);
 
     this.state = {
-      name    : "",
       email   : "",
       password: "",
     };
@@ -29,7 +26,7 @@ class MotDePasseOublie extends React.Component {
     ]);
   }
 
-  onSignUpPressed() {
+  onPWChangePressed() {
     console.log("click");
     //console.log(this.props);
 
@@ -41,16 +38,23 @@ class MotDePasseOublie extends React.Component {
       this.alerte();
       return;
     } 
-    else {
-      const action = { type: "ADD_USER", value: {email: this.state.email, password: this.state.password}};
 
-      this.props.dispatch(action);
-      this.props.navigation.navigate("LoginScreen");
-    }
+    const {users} = this.props
+
+    for(var i=0; i < users.length; i++) {
+
+        if (users[i].email == this.state.email) {
+            const action = { type: "ADD_USER", value: {name: users[i].name, email: this.state.email, password: this.state.password}};
+
+            this.props.dispatch(action);
+
+          this.props.navigation.navigate('LoginScreen');
+        }
+      }
   }
 
   render() {
-    const { navigate } = this.props.navigation;
+    //const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.container}>
@@ -69,7 +73,7 @@ class MotDePasseOublie extends React.Component {
         <Button
           color   = "#841584"
           title   = "Modifier"
-          onPress = {() => this.onSignUpPressed()}
+          onPress = {() => this.onPWChangePressed()}
         />
         
       </View>
