@@ -12,7 +12,7 @@ import {
 } from "../core/utils";
 import { connect } from 'react-redux'
 
-class Inscription extends React.Component {
+class MotDePasseOublie extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,17 +33,16 @@ class Inscription extends React.Component {
     console.log("click");
     //console.log(this.props);
 
-    const nameError     = nameValidator(this.state.name);
     const emailError    = emailValidator(this.state.email);
     const passwordError = passwordValidator(this.state.password);
     //var user = [];
 
-    if (nameError || emailError || passwordError) {
+    if (emailError || passwordError) {
       this.alerte();
       return;
     } 
     else {
-      const action = { type: "ADD_USER", value: {name: this.state.name, email: this.state.email, password: this.state.password}};
+      const action = { type: "ADD_USER", value: {email: this.state.email, password: this.state.password}};
 
       this.props.dispatch(action);
       this.props.navigation.navigate("LoginScreen");
@@ -55,16 +54,7 @@ class Inscription extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Title title="Inscription" />
-
-        <TexteInput
-          placeholder      = "Nom"
-          autoCompleteType = "name"
-          textContentType  = "name"
-          autoCompleteType = "name"
-          value            = {this.state.name}
-          onChangeText     = {(text) => this.setState({ name: text })}
-        />
+        <Title title="Modifier votre mot de passe" />
 
         <EmailInput
           value        = {this.state.email}
@@ -78,20 +68,9 @@ class Inscription extends React.Component {
 
         <Button
           color   = "#841584"
-          title   = "Inscription"
+          title   = "Modifier"
           onPress = {() => this.onSignUpPressed()}
         />
-
-        <Text>
-          Déjà inscrit ?
-          <Text
-            style   = {styles.innerText}
-            onPress = {() => navigate("LoginScreen")}
-          >
-            {" "}
-            Connectez-vous
-          </Text>
-        </Text>
         
       </View>
     );
@@ -116,4 +95,4 @@ const mapStateToProps = (state) => {
 }
 
 // React autorise uniquement un export default par page
-export default connect(mapStateToProps)(Inscription)
+export default connect(mapStateToProps)(MotDePasseOublie)

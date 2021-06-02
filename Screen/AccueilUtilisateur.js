@@ -7,17 +7,13 @@ export default class AccueilUtilisateur extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    // function Welcome(props) {
-    //   return <h1>Hello, {props.name}</h1>;
-    //   }
-
     return (
       <View style={styles.container}>
         <Title title = "Vous êtes connecté" />
         
 
         <Text style = {{ width: "60%", textAlign: "center" }}>
-          Bienvenu sur notre application d'inscription connexion
+          Bienvenu {this.props.route.params.username} sur notre application d'inscription connexion
           {"\n"}
         </Text>
 

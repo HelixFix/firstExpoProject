@@ -1,6 +1,6 @@
 import React from "react";
 import Title from "../Components/Title";
-import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
@@ -83,6 +83,16 @@ class Connexion extends React.Component {
           title   = "Inscription"
           onPress = {() => navigate("Registerscreen")}
         />
+
+        
+          <Text
+            style   = {styles.innerText}
+            onPress = {() => navigate("ForgotPW")}
+          >
+            Mot de passe oublié ?
+          </Text>
+        
+
       </View>
     );
   }
@@ -94,6 +104,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems     : "center",
     justifyContent : "center",
+  },
+  innerText: {
+    color     : "#841584",
+    fontWeight: "bold",
   },
 });
 
