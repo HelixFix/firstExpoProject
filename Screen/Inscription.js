@@ -11,6 +11,7 @@ import {
   passwordValidator,
 } from "../core/utils";
 import { connect } from "react-redux";
+import * as SQLite from 'expo-sqlite'
 
 class Inscription extends React.Component {
   constructor(props) {
@@ -29,35 +30,50 @@ class Inscription extends React.Component {
     ]);
   }
 
-  onSignUpPressed() {
-    console.log("click");
-    //console.log(this.props);
-
-    const nameError     = nameValidator(this.state.name);
-    const emailError    = emailValidator(this.state.email);
-    const passwordError = passwordValidator(this.state.password);
-    //var user = [];
-
-    if (nameError || emailError || passwordError) {
-      this.alerte();
-      return;
-    } else {
-      const action = {
-        type : "ADD_USER",
-        value: {
-          name    : this.state.name,
-          email   : this.state.email,
-          password: this.state.password,
-        },
-      };
-
-      this.props.dispatch(action);
-      this.props.navigation.navigate("LoginScreen");
-    }
-  }
+  
 
   render() {
     const { navigate } = this.props.navigation;
+
+    const db = SQLite.openDatabase("database.db");
+    // console.log(db);
+
+    function onSignUpPressed(state) {
+      console.log("click");
+      console.log(db);
+      //console.log(this.props);
+  
+      const nameError     = nameValidator(state.name);
+      const emailError    = emailValidator(state.email);
+      const passwordError = passwordValidator(state.password);
+      //var user = [];
+  
+      if (nameError || emailError || passwordError) {
+        alerte();
+        return;
+      } 
+      // else { // Méthode redux
+      //   const action = {
+      //     type : "ADD_USER",
+      //     value: {
+      //       name    : this.state.name,
+      //       email   : this.state.email,
+      //       password: this.state.password,
+      //     },
+      //   };
+  
+      //   this.props.dispatch(action);
+      //   this.props.navigation.navigate("LoginScreen");
+      // }
+      else { // Méthode SQLite
+        db.transaction (
+          tx => {
+            tx.executeSql("insert into user (name, mail, mdp) values (?, ?, ?)", [state.name, state.email, state.password])
+          }
+        );
+        navigate("LoginScreen");
+      }
+    }
 
     return (
       <View style={styles.container}>
@@ -85,7 +101,7 @@ class Inscription extends React.Component {
         <Button
           color   = "#841584"
           title   = "Inscription"
-          onPress = {() => this.onSignUpPressed()}
+          onPress = {() => onSignUpPressed(this.state)}
         />
 
         <Text>
