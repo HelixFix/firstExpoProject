@@ -8,13 +8,23 @@ import * as SQLite from 'expo-sqlite'
 export default class HomePage extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
-    const db = SQLite.openDatabase("database.db");
+    const db           = SQLite.openDatabase("database.db");
 
     db.transaction (tx => {
       tx.executeSql("create table if not exists user (id integer primary key not null, name text, mail text, mdp text);")
     });
 
-    console.log(db);
+    db.transaction (
+      tx => {
+        tx.executeSql("SELECT * FROM user", [], (_, { rows }) =>
+        // data = _array
+        console.log(rows)
+        
+        );
+      }
+    );
+
+    // console.log(db);
     
 
     return (

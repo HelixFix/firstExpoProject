@@ -18,6 +18,49 @@ class Connexion extends React.Component {
     };
   }
 
+  
+  // console.log(db);
+
+  // Méthode SQLite
+   alerte() {
+      Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    }
+
+   onLoginPressed() {
+      const emailError    = emailValidator(this.state.email);
+      const passwordError = passwordValidator(this.state.password);
+      const db = SQLite.openDatabase("database.db");
+  
+      if (emailError || passwordError) {
+        this.alerte();
+        return;
+      } else {
+        return new Promise((resolver, reject) => {
+            db.transaction((tx) => {
+              tx.executeSql(
+                "SELECT * FROM user WHERE mail = ? AND mdp = ?",
+                [this.state.email, this.state.password],
+                (tx, { rows }) => {
+                  console.log(rows);
+                  if (rows._array.length > 0) {
+                    this.props.navigation.navigate("UserHomePage", { username: rows._array[0].name });
+                  } else {
+                    alert();
+                  }
+                },
+                (tx, error) => {
+                  console.log("erreur de traitement");
+                }
+              );
+            });
+          });
+      }
+      
+  };
+
+
 
 
 //   onLoginPressed() {
@@ -63,50 +106,6 @@ class Connexion extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    const db = SQLite.openDatabase("database.db");
-    // console.log(db);
-
-    // Méthode SQLite
-    function alerte() {
-        Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
-      }
-
-    function onLoginPressed(state) {
-        const emailError    = emailValidator(state.email);
-        const passwordError = passwordValidator(state.password);
-    
-        if (emailError || passwordError) {
-          alerte();
-          return;
-        }
-        goCheckUserAsync(state.email, state.password);
-    };
-
-    function goCheckUserAsync(email, password) {
-      return new Promise((resolver, reject) => {
-        db.transaction((tx) => {
-          tx.executeSql(
-            "SELECT * FROM user WHERE mail = ? AND mdp = ?",
-            [email, password],
-            (tx, { rows }) => {
-              console.log(rows);
-              if (rows._array.length > 0) {
-                navigate("UserHomePage", { username: rows._array[0].name });
-              } else {
-                alert();
-              }
-            },
-            (tx, error) => {
-              console.log("erreur de traitement");
-            }
-          );
-        });
-      });
-    }
-    //const {navigate} = this.props.navigation;
-
     return (
       <View style={styles.container}>
         <Title title = "Connexion" />
@@ -128,7 +127,7 @@ class Connexion extends React.Component {
         <Button
           color   = "#841584"
           title   = "Connexion"
-          onPress = {() => onLoginPressed(this.state)}
+          onPress = {() => this.onLoginPressed()}
         />
 
         <Button
