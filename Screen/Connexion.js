@@ -18,11 +18,7 @@ class Connexion extends React.Component {
     };
   }
 
-  alerte() {
-    Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
-    ]);
-  }
+
 
 //   onLoginPressed() {
 //     const emailError    = emailValidator(this.state.email);
@@ -71,6 +67,12 @@ class Connexion extends React.Component {
     // console.log(db);
 
     // Méthode SQLite
+    function alerte() {
+        Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+      }
+
     function onLoginPressed(state) {
         const emailError    = emailValidator(state.email);
         const passwordError = passwordValidator(state.password);

@@ -24,11 +24,7 @@ class Inscription extends React.Component {
     };
   }
 
-  alerte() {
-    Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
-    ]);
-  }
+
 
   
 
@@ -37,6 +33,12 @@ class Inscription extends React.Component {
 
     const db = SQLite.openDatabase("database.db");
     // console.log(db);
+
+    function alerte() {
+      Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    }
 
     function onSignUpPressed(state) {
       console.log("click");
