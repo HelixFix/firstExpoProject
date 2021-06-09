@@ -54,6 +54,8 @@ export default class Connexion extends React.Component {
         if (json != false) {
             this.props.navigation.navigate("UserHomePage", {
                 username: json.name,
+                email: json.pseudo,
+                userID: json.id,
               });
         } else {
             Alert.alert(
@@ -78,6 +80,7 @@ export default class Connexion extends React.Component {
         <Title title = "Connexion" />
 
         <EmailInput
+          placeholder  = "Email"
           value        = {this.state.email}
           onChangeText = {(text) => this.setState({ email: text })}
         />

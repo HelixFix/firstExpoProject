@@ -10,7 +10,7 @@ export default class EmailInput extends Component {
   }
   render() {
 
-    const { value, onChangeText } = this.props;
+    const { value, onChangeText, placeholder } = this.props;
 
     return (
       <TextInput
@@ -29,7 +29,7 @@ export default class EmailInput extends Component {
         autoCompleteType = "email"
         textContentType  = "emailAddress"
         keyboardType     = "email-address"
-        placeholder      = "Email"
+        placeholder      = {placeholder}
       />
     );
   }

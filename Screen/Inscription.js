@@ -22,6 +22,12 @@ export default class Inscription extends React.Component {
     };
   }
 
+  alerte() {
+    Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+  }
+
   onSignUpPressed() {
     console.log("click");
 
@@ -76,11 +82,7 @@ export default class Inscription extends React.Component {
 
     // console.log(db);
 
-    function alerte() {
-      Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]);
-    }
+
 
     return (
       <View style={styles.container}>
@@ -96,8 +98,9 @@ export default class Inscription extends React.Component {
         />
 
         <EmailInput
-          value        = {this.state.email}
-          onChangeText = {(text) => this.setState({ email: text })}
+        placeholder  = "Email"
+        value        = {this.state.email}
+        onChangeText = {(text) => this.setState({ email: text })}
         />
 
         <PasswordInput

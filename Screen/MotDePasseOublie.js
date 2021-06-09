@@ -32,7 +32,7 @@ export default class MotDePasseOublie extends React.Component {
     //var user = [];
 
     if (emailError || passwordError) {
-      this.alerte();
+      alerte();
       return;
     }
 
@@ -80,8 +80,9 @@ export default class MotDePasseOublie extends React.Component {
         <Title title = "Nouveau mot de passe" />
 
         <EmailInput
-          value        = {this.state.email}
-          onChangeText = {(text) => this.setState({ email: text })}
+        placeholder  = "Email"
+        value        = {this.state.email}
+        onChangeText = {(text) => this.setState({ email: text })}
         />
 
         <PasswordInput
