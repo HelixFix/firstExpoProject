@@ -5,9 +5,9 @@ import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
 import { emailValidator, passwordValidator } from "../core/utils";
-import { connect } from "react-redux";
 
-class MotDePasseOublie extends React.Component {
+
+export default class MotDePasseOublie extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,47 +36,40 @@ class MotDePasseOublie extends React.Component {
       return;
     }
 
-    const { users } = this.props;
 
-    var userConnect = false;
+    const formData = new FormData();
+    formData.append("mail", this.state.email);
+    formData.append("password", this.state.password);
 
-    // if (users.length == 0) {
-    //   Alert.alert(
-    //     "Erreur",
-    //     "Database vide",
-    //     [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-    //     { cancelable: false }
-    //   );
-    // }
-
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].email == this.state.email) {
-
-        userConnect = true;
-
-        const action      = {
-          type : "ADD_USER",
-          value: {
-            name    : users[i].name,
-            email   : this.state.email,
-            password: this.state.password,
-          },
-        };
-
-        this.props.dispatch(action);
-
+    // POST request
+    fetch("http://jdevalik.fr/api/updateuser.php", {
+      method : "POST",     // Request Type
+      body   : formData,   // post data
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((Response) => Response.json())
+    .then((json) => {
+      console.log(json);
+      console.log('Je print json');
+      if (json == false) {
+        Alert.alert(
+          "Erreur",
+          "Le-mail saisi n'existe pas",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
+      } else {
         this.props.navigation.navigate("LoginScreen");
       }
-    }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-    if (userConnect == false) {
-      Alert.alert(
-        "Erreur",
-        "L'email est incorrect",
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-        { cancelable: false }
-      );
-  }
+
+
   }
 
   render() {
@@ -119,9 +112,3 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-// React autorise uniquement un export default par page
-export default connect(mapStateToProps)(MotDePasseOublie);
