@@ -10,10 +10,9 @@ import {
   nameValidator,
   passwordValidator,
 } from "../core/utils";
-import { connect } from "react-redux";
-import * as SQLite from 'expo-sqlite'
+import * as SQLite from "expo-sqlite";
 
-class Inscription extends React.Component {
+export default class Inscription extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,43 +31,47 @@ class Inscription extends React.Component {
     const nameError     = nameValidator(this.state.name);
     const emailError    = emailValidator(this.state.email);
     const passwordError = passwordValidator(this.state.password);
-    const db = SQLite.openDatabase("database.db");
+    const db            = SQLite.openDatabase("database.db");
     //var user = [];
 
     if (nameError || emailError || passwordError) {
       this.alerte();
       return;
-    } 
-    // else { // Méthode redux
-    //   const action = {
-    //     type : "ADD_USER",
-    //     value: {
-    //       name    : this.state.name,
-    //       email   : this.state.email,
-    //       password: this.state.password,
-    //     },
-    //   };
+    } else {
+      // Méthode SQLite
+      db.transaction((tx) => {
+        tx.executeSql(
+          "SELECT * FROM user WHERE mail = ?",
+          [this.state.email],
+          (tx, { rows }) => {
+            console.log(rows);
+            if (rows._array.length > 0) {
+              Alert.alert(
+                "Erreur",
+                "L'adresse mail est déja existante",
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                { cancelable: false }
+              );
+            } else {
+              tx.executeSql(
+                "insert into user (name, mail, mdp) values (?, ?, ?)",
+                [this.state.name, this.state.email, this.state.password]
+              );
+            }
+          },
+          (tx, error) => {
+            console.log("erreur de traitement");
+          }
+        );
+      });
 
-    //   this.props.dispatch(action);
-    //   this.props.navigation.navigate("LoginScreen");
-    // }
-    else { // Méthode SQLite
-      db.transaction (
-        tx => {
-          tx.executeSql("insert into user (name, mail, mdp) values (?, ?, ?)", [this.state.name, this.state.email, this.state.password])
-        }
-      );
       this.props.navigation.navigate("LoginScreen");
     }
   }
 
-
-  
-
   render() {
     const { navigate } = this.props.navigation;
 
-    
     // console.log(db);
 
     function alerte() {
@@ -77,11 +80,9 @@ class Inscription extends React.Component {
       ]);
     }
 
- 
-
     return (
-      <View style={styles.container}>
-        <Title title = "Inscription" />
+      <View  style = {styles.container}>
+      <Title title = "Inscription" />
 
         <TexteInput
           placeholder      = "Nom"
@@ -125,20 +126,13 @@ class Inscription extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex           : 1,
+    flex: 1,
     backgroundColor: "#fff",
-    alignItems     : "center",
-    justifyContent : "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
   innerText: {
-    color     : "#841584",
+    color: "#841584",
     fontWeight: "bold",
   },
 });
-
-const mapStateToProps = (state) => {
-  return state;
-};
-
-// React autorise uniquement un export default par page
-export default connect(mapStateToProps)(Inscription);
