@@ -142,9 +142,3 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-// // React autorise uniquement un export default par page
-// export default connect(mapStateToProps)(Inscription);

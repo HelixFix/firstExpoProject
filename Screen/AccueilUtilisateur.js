@@ -68,6 +68,40 @@ export default class AccueilUtilisateur extends React.Component {
     });
 
   }
+
+  onDeletePressed() {
+    const formData = new FormData();
+      formData.append("id", this.props.route.params.userID);
+
+      // POST request
+      fetch("http://jdevalik.fr/api/deleteuser.php", {
+        method : "POST",     // Request Type
+        body   : formData,   // post data
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((Response) => Response.json())
+    .then((json) => {
+      console.log(json);
+      console.log('Je print json');
+      if (json == false) {
+        Alert.alert(
+          "Erreur",
+          "Le-mail saisi n'existe pas",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
+      } else {
+        this.props.navigation.navigate("LoginScreen");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+  }
   
   render() {
     const { navigate } = this.props.navigation;
@@ -109,6 +143,12 @@ export default class AccueilUtilisateur extends React.Component {
           color   = "#841584"
           title   = "Déconnexion"
           onPress = {() => navigate("HomePage")}
+        />
+
+        <Button
+          color   = "red"
+          title   = "Supprimer mon compte"
+          onPress = {() => this.onDeletePressed()}
         />
 
         
