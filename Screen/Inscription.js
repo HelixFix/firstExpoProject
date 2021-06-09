@@ -10,65 +10,70 @@ import {
   nameValidator,
   passwordValidator,
 } from "../core/utils";
-import { connect } from "react-redux";
-import * as SQLite from 'expo-sqlite'
 
-class Inscription extends React.Component {
+export default class Inscription extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name    : "",
-      email   : "",
+      name: "",
+      email: "",
       password: "",
     };
   }
 
   onSignUpPressed() {
     console.log("click");
-    console.log(db);
+
     //console.log(this.props);
 
-    const nameError     = nameValidator(this.state.name);
-    const emailError    = emailValidator(this.state.email);
+    const nameError = nameValidator(this.state.name);
+    const emailError = emailValidator(this.state.email);
     const passwordError = passwordValidator(this.state.password);
-    const db            = SQLite.openDatabase("database.db");
+
     //var user = [];
 
     if (nameError || emailError || passwordError) {
       this.alerte();
       return;
-    } 
-    // else { // Méthode redux
-    //   const action = {
-    //     type : "ADD_USER",
-    //     value: {
-    //       name    : this.state.name,
-    //       email   : this.state.email,
-    //       password: this.state.password,
-    //     },
-    //   };
+    } else {
+      const formData = new FormData();
+      formData.append("name", this.state.name);
+      formData.append("mail", this.state.email);
+      formData.append("password", this.state.password);
 
-    //   this.props.dispatch(action);
-    //   this.props.navigation.navigate("LoginScreen");
-    // }
-    else { // Méthode SQLite
-      db.transaction (
-        tx => {
-          tx.executeSql("insert into user (name, mail, mdp) values (?, ?, ?)", [this.state.name, this.state.email, this.state.password])
-        }
-      );
-      this.props.navigation.navigate("LoginScreen");
+      // POST request
+      fetch("http://jdevalik.fr/api/insertuser.php", {
+        method : "POST",     // Request Type
+        body   : formData,   // post data
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then((Response) => Response.json())
+        .then((json) => {
+          console.log(json);
+          console.log('Je print json');
+          if (json == false) {
+            Alert.alert(
+              "Erreur",
+              "Le-mail saisi existe déja. Veuillez saisir une autre adresse mail ou récupérer votre mot de passe",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+              { cancelable: false }
+            );
+          } else {
+            this.props.navigation.navigate("LoginScreen");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
-
-
-  
 
   render() {
     const { navigate } = this.props.navigation;
 
-    
     // console.log(db);
 
     function alerte() {
@@ -77,42 +82,40 @@ class Inscription extends React.Component {
       ]);
     }
 
- 
-
     return (
       <View style={styles.container}>
-        <Title title = "Inscription" />
+        <Title title="Inscription" />
 
         <TexteInput
-          placeholder      = "Nom"
-          autoCompleteType = "name"
-          textContentType  = "name"
-          autoCompleteType = "name"
-          value            = {this.state.name}
-          onChangeText     = {(text) => this.setState({ name: text })}
+          placeholder="Nom"
+          autoCompleteType="name"
+          textContentType="name"
+          autoCompleteType="name"
+          value={this.state.name}
+          onChangeText={(text) => this.setState({ name: text })}
         />
 
         <EmailInput
-          value        = {this.state.email}
-          onChangeText = {(text) => this.setState({ email: text })}
+          value={this.state.email}
+          onChangeText={(text) => this.setState({ email: text })}
         />
 
         <PasswordInput
-          value        = {this.state.password}
-          onChangeText = {(text) => this.setState({ password: text })}
+          value={this.state.password}
+          onChangeText={(text) => this.setState({ password: text })}
         />
 
         <Button
-          color   = "#841584"
-          title   = "Inscription"
-          onPress = {() => this.onSignUpPressed()}
+          color="#841584"
+          title="Inscription"
+          onPress={() => this.onSignUpPressed()}
         />
 
         <Text>
           Déjà inscrit ?
           <Text
-            style   = {styles.innerText}
-            onPress = {() => navigate("LoginScreen")}
+            style={styles.innerText}
+            onPress={() => navigate("LoginScreen")}
           >
             {" "}
             Connectez-vous
@@ -125,13 +128,13 @@ class Inscription extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex           : 1,
+    flex: 1,
     backgroundColor: "#fff",
-    alignItems     : "center",
-    justifyContent : "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
   innerText: {
-    color     : "#841584",
+    color: "#841584",
     fontWeight: "bold",
   },
 });
@@ -140,5 +143,5 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-// React autorise uniquement un export default par page
-export default connect(mapStateToProps)(Inscription);
+// // React autorise uniquement un export default par page
+// export default connect(mapStateToProps)(Inscription);
