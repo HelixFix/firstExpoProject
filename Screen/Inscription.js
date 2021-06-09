@@ -32,7 +32,7 @@ class Inscription extends React.Component {
     const nameError     = nameValidator(this.state.name);
     const emailError    = emailValidator(this.state.email);
     const passwordError = passwordValidator(this.state.password);
-    const db = SQLite.openDatabase("database.db");
+    const db            = SQLite.openDatabase("database.db");
     //var user = [];
 
     if (nameError || emailError || passwordError) {
