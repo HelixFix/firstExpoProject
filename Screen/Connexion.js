@@ -30,77 +30,45 @@ export default class Connexion extends React.Component {
    onLoginPressed() {
       const emailError    = emailValidator(this.state.email);
       const passwordError = passwordValidator(this.state.password);
-      const db            = SQLite.openDatabase("database.db");
   
       if (emailError || passwordError) {
         this.alerte();
         return;
-      } else {
-        return new Promise((resolver, reject) => {
-            db.transaction((tx) => {
-              tx.executeSql(
-                "SELECT * FROM user WHERE mail = ? AND mdp = ?",
-                [this.state.email, this.state.password],
-                (tx, { rows }) => {
-                  console.log(rows);
-                  if (rows._array.length > 0) {
-                    this.props.navigation.navigate("UserHomePage", { username: rows._array[0].name });
-                  } else {
-                    alert();
-                  }
-                },
-                (tx, error) => {
-                  console.log("erreur de traitement");
-                }
+      } 
+      const formData = new FormData();
+      formData.append("mail", this.state.email);
+      formData.append("password", this.state.password);
+
+      // POST request
+      fetch("http://jdevalik.fr/api/getuser.php", {
+        method : "POST",     // Request Type
+        body   : formData,   // post data
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((Response) => Response.json())
+      .then((json) => {
+        console.log(json);
+        console.log('Je print json');
+        if (json != false) {
+            this.props.navigation.navigate("UserHomePage", {
+                username: json.name,
+              });
+        } else {
+            Alert.alert(
+                "Erreur",
+                "Le-mail ou le mot de passe est incorrect",
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                { cancelable: false }
               );
-            });
-          });
-      }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
       
   };
-
-
-
-
-//   onLoginPressed() {
-//     const emailError    = emailValidator(this.state.email);
-//     const passwordError = passwordValidator(this.state.password);
-
-//     if (emailError || passwordError) {
-//       this.alerte();
-//       return;
-//     }
-
-//     const { users } = this.props;
-
-//     var userConnect = false;
-
-//     // Méthode Redux
-//     // for (var i = 0; i < users.length; i++) {
-//     //   if (
-//     //     users[i].email    == this.state.email &&
-//     //     users[i].password == this.state.password
-//     //   ) {
-
-//     //     userConnect = true;
-
-//     //     this.props.navigation.navigate("UserHomePage", {
-//     //       username: users[i].name,
-//     //     });
-//     //   }
-//     // }
-
-
-
-//     if (userConnect == false) {
-//       Alert.alert(
-//         "Erreur",
-//         "L'email ou le mot de passe est incorrect",
-//         [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-//         { cancelable: false }
-//       );
-//     }
-//   }
 
   render() {
     const { navigate } = this.props.navigation;

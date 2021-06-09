@@ -16,8 +16,8 @@ export default class Inscription extends React.Component {
     super(props);
 
     this.state = {
-      name: "",
-      email: "",
+      name    : "",
+      email   : "",
       password: "",
     };
   }
@@ -27,8 +27,8 @@ export default class Inscription extends React.Component {
 
     //console.log(this.props);
 
-    const nameError = nameValidator(this.state.name);
-    const emailError = emailValidator(this.state.email);
+    const nameError     = nameValidator(this.state.name);
+    const emailError    = emailValidator(this.state.email);
     const passwordError = passwordValidator(this.state.password);
 
     //var user = [];
@@ -87,35 +87,35 @@ export default class Inscription extends React.Component {
         <Title title="Inscription" />
 
         <TexteInput
-          placeholder="Nom"
-          autoCompleteType="name"
-          textContentType="name"
-          autoCompleteType="name"
-          value={this.state.name}
-          onChangeText={(text) => this.setState({ name: text })}
+          placeholder      = "Nom"
+          autoCompleteType = "name"
+          textContentType  = "name"
+          autoCompleteType = "name"
+          value            = {this.state.name}
+          onChangeText     = {(text) => this.setState({ name: text })}
         />
 
         <EmailInput
-          value={this.state.email}
-          onChangeText={(text) => this.setState({ email: text })}
+          value        = {this.state.email}
+          onChangeText = {(text) => this.setState({ email: text })}
         />
 
         <PasswordInput
-          value={this.state.password}
-          onChangeText={(text) => this.setState({ password: text })}
+          value        = {this.state.password}
+          onChangeText = {(text) => this.setState({ password: text })}
         />
 
         <Button
-          color="#841584"
-          title="Inscription"
-          onPress={() => this.onSignUpPressed()}
+          color   = "#841584"
+          title   = "Inscription"
+          onPress = {() => this.onSignUpPressed()}
         />
 
         <Text>
           Déjà inscrit ?
           <Text
-            style={styles.innerText}
-            onPress={() => navigate("LoginScreen")}
+            style   = {styles.innerText}
+            onPress = {() => navigate("LoginScreen")}
           >
             {" "}
             Connectez-vous
@@ -128,13 +128,13 @@ export default class Inscription extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex           : 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems     : "center",
+    justifyContent : "center",
   },
   innerText: {
-    color: "#841584",
+    color     : "#841584",
     fontWeight: "bold",
   },
 });
