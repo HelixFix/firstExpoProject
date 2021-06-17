@@ -1,6 +1,6 @@
 import React from "react";
 import Title from "../Components/Title";
-import { StyleSheet, TouchableOpacity, View, Text, Alert } from "react-native";
+import { StyleSheet, View, Text, Alert } from "react-native";
 import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
@@ -43,7 +43,7 @@ export default class Inscription extends React.Component {
       this.alerte();
       return;
     } else {
-      const formData = new FormData();
+      const formData = new FormData(); // Stock les données
       formData.append("name", this.state.name);
       formData.append("mail", this.state.email);
       formData.append("password", this.state.password);
@@ -79,10 +79,6 @@ export default class Inscription extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-
-    // console.log(db);
-
-
 
     return (
       <View style={styles.container}>

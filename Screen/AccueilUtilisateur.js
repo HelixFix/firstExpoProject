@@ -120,6 +120,7 @@ export default class AccueilUtilisateur extends React.Component {
 
         <TexteInput
           placeholder      = {this.props.route.params.username}
+          returnKeyType = "next"
           autoCompleteType = "name"
           textContentType  = "name"
           autoCompleteType = "name"
@@ -129,6 +130,7 @@ export default class AccueilUtilisateur extends React.Component {
 
         <EmailInput
           placeholder  = {this.props.route.params.email}
+          returnKeyType = "done"
           value        = {this.state.email}
           onChangeText = {(text) => this.setState({ email: text })}
         />

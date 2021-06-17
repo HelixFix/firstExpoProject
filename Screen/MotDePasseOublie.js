@@ -1,6 +1,6 @@
 import React from "react";
 import Title from "../Components/Title";
-import { StyleSheet, TouchableOpacity, View, Alert } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
@@ -29,7 +29,7 @@ export default class MotDePasseOublie extends React.Component {
 
     const emailError    = emailValidator(this.state.email);
     const passwordError = passwordValidator(this.state.password);
-    //var user = [];
+
 
     if (emailError || passwordError) {
       alerte();
@@ -67,9 +67,6 @@ export default class MotDePasseOublie extends React.Component {
     .catch((error) => {
       console.log(error);
     });
-
-
-
   }
 
   render() {

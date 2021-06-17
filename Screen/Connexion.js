@@ -1,6 +1,6 @@
 import React from "react";
 import Title from "../Components/Title";
-import { Alert, StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { Alert, StyleSheet, View, Text } from "react-native";
 import Button from "../Components/Button";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
@@ -17,10 +17,7 @@ export default class Connexion extends React.Component {
     };
   }
 
-  
-  // console.log(db);
 
-  // Méthode SQLite
    alerte() {
       Alert.alert("Erreur", "Veuillez remplir correctement les champs", [
         { text: "OK", onPress: () => console.log("OK Pressed") },
@@ -54,8 +51,8 @@ export default class Connexion extends React.Component {
         if (json != false) {
             this.props.navigation.navigate("UserHomePage", {
                 username: json.name,
-                email: json.pseudo,
-                userID: json.id,
+                email   : json.pseudo,
+                userID  : json.id,
               });
         } else {
             Alert.alert(
@@ -89,10 +86,6 @@ export default class Connexion extends React.Component {
           value        = {this.state.password}
           onChangeText = {(text) => this.setState({ password: text })}
         />
-
-        {/* <TouchableOpacity onPress={() => navigate("LoginScreen")}>
-          <Text color = "#ff5c5c">Connexion</Text>
-        </TouchableOpacity> */}
 
         <Button
           color   = "#841584"

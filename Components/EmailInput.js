@@ -15,7 +15,7 @@ export default class EmailInput extends Component {
     return (
       <TextInput
         label         = "Email"
-        returnKeyType = "next"
+        
         value         = {value}
         onChangeText  = {onChangeText}
         style         = {{
