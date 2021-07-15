@@ -17,10 +17,47 @@ export default class Inscription extends React.Component {
     super(props);
 
     this.state = {
-      name    : "",
-      email   : "",
-      password: "",
+      name         : "",
+      email        : "",
+      password     : "",
+      nameError    : false,
+      emailError   : false,
+      passwordError: false,
     };
+  }
+
+  componentDidMount() {
+    console.log('mount');
+    
+  }
+
+  componentDidUpdate() {
+    console.log('did update');
+    const nameError     = nameValidator(this.state.name);
+    const emailError    = emailValidator(this.state.email);
+    const passwordError = passwordValidator(this.state.password);
+
+    if (nameError) {
+      if (this.state.nameError == false) {
+        this.setState({nameError: true})
+      }
+    }
+    if (emailError ) {
+      if (this.state.emailError == false) {
+        this.setState({emailError: true})
+      }
+    }
+    if (passwordError ) {
+      if (this.state.passwordError == false) {
+        this.setState({passwordError: true})
+      }
+    }
+  }
+
+
+  componentWillUnmount() {
+    console.log('will unmount');
+    
   }
 
   onSignUpPressed() {
@@ -85,6 +122,7 @@ export default class Inscription extends React.Component {
       <Title title = "Inscription" />
 
         <TexteInput
+          style            = {this.state.nameError ? styles.textInputRed : styles.textInputGreen}
           placeholder      = "Nom"
           autoCompleteType = "name"
           textContentType  = "name"
@@ -94,13 +132,15 @@ export default class Inscription extends React.Component {
         />
 
         <EmailInput
-          value        = {this.state.email}
-          onChangeText = {(text) => this.setState({ email: text })}
+        style        = {this.state.emailError ? styles.textInputRed : styles.textInputGreen}
+        value        = {this.state.email}
+        onChangeText = {(text) => this.setState({ email: text })}
         />
 
         <PasswordInput
-          value        = {this.state.password}
-          onChangeText = {(text) => this.setState({ password: text })}
+        style        = {this.state.passwordError ? styles.textInputRed : styles.textInputGreen}
+        value        = {this.state.password}
+        onChangeText = {(text) => this.setState({ password: text })}
         />
 
         <Button
@@ -126,13 +166,25 @@ export default class Inscription extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex           : 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems     : "center",
+    justifyContent : "center",
   },
   innerText: {
-    color: "#841584",
+    color     : "#841584",
     fontWeight: "bold",
   },
+  textInputRed: {
+    borderColor: 'red',
+    borderWidth: 1,
+    height     : 40,
+    margin     : 10,
+  },
+  textInputGreen: {
+    borderColor: 'green',
+    borderWidth: 1,
+    height     : 40,
+    margin     : 10,
+  }
 });

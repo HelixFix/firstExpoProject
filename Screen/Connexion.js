@@ -30,7 +30,7 @@ export default class Connexion extends React.Component {
    onLoginPressed() {
       const emailError    = emailValidator(this.state.email);
       const passwordError = passwordValidator(this.state.password);
-      const db = SQLite.openDatabase("database.db");
+      const db            = SQLite.openDatabase("database.db");
   
       if (emailError || passwordError) {
         this.alerte();
